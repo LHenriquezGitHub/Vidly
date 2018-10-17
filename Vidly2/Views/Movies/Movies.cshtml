@@ -1,0 +1,37 @@
+﻿@model Vidly2.ViewModels.MovieViewModel
+
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Movies.Count < 1)
+{
+    <h2>We don't have any movies yet.</h2>
+}
+else if (Model.HasMovie)
+{
+    <h2> Movies </h2>
+
+    <td>@Html.ActionLink("New Movie", "New")</td>
+
+    <table id="myTable" class="table" cellspacing="0">
+        <thead>
+            <tr><th>Movie</th><th>Genre</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@movie.Name, "Edit", new { Id = movie.Id })</td>
+                    <td>  @movie.Genre.Name</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>We don't have that movie.</h2>
+}
