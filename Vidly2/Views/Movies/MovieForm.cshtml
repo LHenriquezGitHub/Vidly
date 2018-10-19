@@ -3,11 +3,13 @@
 
 @{
     ViewBag.Title = "MovieForm";
-
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2> Model.Title </h2>
+@if (Model.Id == 0) { ViewBag.ActionTitle = "New Movie"; }
+else { ViewBag.ActionTitle = "Edit Movie"; }
+
+<h2> @ViewBag.ActionTitle </h2>
 
 @using (Html.BeginForm("Save", "Movies"))
 {

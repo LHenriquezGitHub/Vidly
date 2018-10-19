@@ -15,7 +15,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Customer == null) { ViewBag.ActionTitle = "New Customer"; }
+@if (Model.Customer.Id == 0) { ViewBag.ActionTitle = "New Customer"; }
 else { ViewBag.ActionTitle = "Edit Customer"; }
 
 
