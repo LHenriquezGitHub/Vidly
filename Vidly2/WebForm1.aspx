@@ -19,8 +19,9 @@
     <button type="submit" class="id-button">Submit</button>
     <div id="output-box"></div>
         <br /><br /><br />
-
-   <%--     <a href="#" class="myLink disabled">My link</a>--%>
+        
+        <a href="customers" class="myLink1 k-state-disabled">My link disabled</a>
+        <a href="#" class="myLink2 enabled">My link enabled</a>
 
         <script type="text/javascript">
 
@@ -36,15 +37,29 @@
                     event.preventDefault();
                 });
 
-                $(".myLink").on('click', function (event) {
-                    if ($(this).hasClass('disabled')) {
+                //$("a").click(function (event) {
+                //    $(this).addClass().html("<span>Hello</span>")
+                //    event.preventDefault();
+                //});
+
+                $(".myLink1").on('click', function (event) {
+                    if ($(".myLink1").hasClass('k-state-disabled')) {
                         event.preventDefault();
-                    $(this).addClass().html("<span>Hello</span>")
+                    //$(this).addClass().html("<span>Hello</span>")
 
                         // return false; // Use when no action should be performed
                     } else {
                         // Handle event
 
+                    }
+                });
+
+
+                $(".myLink2").on('click', function (event) {
+                    if ($(".myLink1").hasClass('k-state-disabled')) {
+                        $(".myLink1").removeClass('k-state-disabled');
+                    } else {
+                        $(".myLink1").addClass('k-state-disabled');
                     }
                 });
 
