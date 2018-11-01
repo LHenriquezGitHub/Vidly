@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vidly2", "Vidly2\Vidly2.csproj", "{A797FD90-ED8C-4A5F-B08D-A855396DF2A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidlyConsole", "VidlyConsole\VidlyConsole.csproj", "{CFAA2EDF-0156-4C1B-B6F6-5E0DEFEFA607}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A797FD90-ED8C-4A5F-B08D-A855396DF2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A797FD90-ED8C-4A5F-B08D-A855396DF2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A797FD90-ED8C-4A5F-B08D-A855396DF2A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFAA2EDF-0156-4C1B-B6F6-5E0DEFEFA607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFAA2EDF-0156-4C1B-B6F6-5E0DEFEFA607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFAA2EDF-0156-4C1B-B6F6-5E0DEFEFA607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFAA2EDF-0156-4C1B-B6F6-5E0DEFEFA607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
