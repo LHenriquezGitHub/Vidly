@@ -11,66 +11,60 @@ namespace VidlyConsole
     {
         static void Main(string[] args)
         {
+            var pattern = @"^(?<EntityId>[A-Za-z0-9_]+)_(?<Year>20\d{2})(?<Month>0[1-9]|1[012])(?<Day>0[1-9]|[12][0-9]|3[01])_00.dat.gz|(?<EntityId>[A-Za-z0-9_]+)_(?<Year>20\d{2})(?<Month>0[1-9]|1[012])(?<Day>0[1-9]|[12][0-9]|3[01])_00.dat.gz.md5$";
+            System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(pattern);
+            Console.WriteLine(r.IsMatch("925175_20181031_00.dat.gz"));
+            Console.WriteLine(r.IsMatch("925175_20181031_00.dat.gz.md5"));
+            Console.WriteLine(r.IsMatch("925175_20181031_00.dat.gz.metadata.txt"));
 
-            var listFileItem = new List<FileItem>
+            var listFileItem1 = new List<FileItem>
             {
-                new FileItem(){ name = "FileItem1 ", fileDate = DateTime.Today},
-                new FileItem(){ name = "FileItem2", fileDate = DateTime.Today.AddDays(1)},
-                new FileItem(){ name = "FileItem3", fileDate = DateTime.Today.AddDays(1)},
-                new FileItem(){ name = "FileItem4", fileDate = DateTime.Today.AddDays(2)},
-                new FileItem(){ name = "FileItem5", fileDate = DateTime.Today.AddDays(2)},
-                new FileItem(){ name = "FileItem6", fileDate = DateTime.Today.AddDays(2)},
-                new FileItem(){ name = "FileItem6", fileDate = DateTime.Today.AddDays(4)},
-                new FileItem(){ name = "FileItem6", fileDate = DateTime.Today.AddDays(4)},
-                
-                new FileItem(){ name = "FileItem1_match_tables.done", fileDate = DateTime.Today},
-                new FileItem(){ name = "FileItem3_match_tables.done", fileDate = DateTime.Today.AddDays(1)},
-                new FileItem(){ name = "FileItem4_match_tables.done", fileDate = DateTime.Today.AddDays(2)},
-                new FileItem(){ name = "FileItem6_match_tables.done", fileDate = DateTime.Today.AddDays(4)}
+                new FileItem(){ name = "2018-11-01_match_OS.log.gz", fileDate = new DateTime(2018, 11, 1)},
+ };
+            var listFileItem2 = new List<FileItem>
+            {    new FileItem(){ name = "2018-11-02_match_OS.log.gz", fileDate = new DateTime(2018, 11, 2)},
+                new FileItem(){ name = "2018-11-02_match_OS.log.gz", fileDate = new DateTime(2018, 11, 2)},
+ };
+            var listFileItem3 = new List<FileItem>
+            {
+                new FileItem(){ name = "2018-11-03_match_OS.log.gz", fileDate = new DateTime(2018, 11, 3)},
+                new FileItem(){ name = "2018-11-03_match_OS.log.gz", fileDate = new DateTime(2018, 11, 3)},
+                new FileItem(){ name = "2018-11-03_match_OS.log.gz", fileDate = new DateTime(2018, 11, 3)},
+                 };
+            var listFileItem4 = new List<FileItem>
+            {
+                new FileItem(){ name = "2018-11-04_match_OS.log.gz", fileDate = new DateTime(2018, 11, 4)},
+                new FileItem(){ name = "2018-11-04_match_OS.log.gz", fileDate = new DateTime(2018, 11, 4)},
+                new FileItem(){ name = "2018-11-04_match_OS.log.gz", fileDate = new DateTime(2018, 11, 4)},
+                new FileItem(){ name = "2018-11-04_match_OS.log.gz", fileDate = new DateTime(2018, 11, 4)},
+
             };
 
-            var listFileLogItemDates = new List<string>
+            Dictionary<string, List<FileItem>> d = new Dictionary<string, List<FileItem>>();
+            d.Add("2018-11-01", listFileItem1);
+            d.Add("2018-11-02", listFileItem2);
+            d.Add("2018-11-03", listFileItem3);
+            d.Add("2018-11-04", listFileItem4);
+
+
+            var PendingDates = new List<string>
             {
-                { DateTime.Today.ToShortDateString() },
-                { DateTime.Today.AddDays(1).ToShortDateString()},
-                { DateTime.Today.AddDays(1).ToShortDateString()},
-                { DateTime.Today.AddDays(2).ToShortDateString()},
-                { DateTime.Today.AddDays(2).ToShortDateString()},
-                { DateTime.Today.AddDays(2).ToShortDateString()},
-                { DateTime.Today.AddDays(3).ToShortDateString()}
+               "2018-11-01",
+               "2018-11-02",
+               "2018-11-03"
+
             };
 
+            var ProcessDates = listFileItem1.Concat(listFileItem2.Concat(listFileItem3.Concat(listFileItem4))).ToList();
+
+            var d2 = ProcessDates.GroupBy(fileItems => fileItems.fileDate).
+                ToDictionary(dic => dic.Key, file => file.ToList());
 
 
-            var data =
-            listFileItem.
-            Where(f => f.name.Contains("_match_tables.done")).
-            GroupBy(fileItems => fileItems.fileDate).
-            ToDictionary(dictionaryFileItem => dictionaryFileItem.Key.ToShortDateString(), fileItem => fileItem.ToList());
+            //listFileLogItemDates.RemoveAll(date => allList.Any(l => l.name.Contains(date)));
 
-            var data2 =
-             listFileItem.
-             GroupBy(fileItems => fileItems.fileDate).
-             ToDictionary(dictionaryFileItem => dictionaryFileItem.Key.ToShortDateString(), fileItem => fileItem.ToList());
-            
-            var data3 = data.Keys.Intersect(data2.Keys);
+            ProcessDates.RemoveAll(file => !PendingDates.Any(date => file.name.Contains(date)));
 
-
-            var data4 = data.
-                Where(d => !listFileLogItemDates.Any(l => l == d.Key)).ToDictionary(d => d.Key, d => d.Value);
-
-
-            foreach (var item in data2)
-            {
-                Console.WriteLine(item.Key);
-
-                foreach (var item2 in item.Value)
-                {
-                    Console.WriteLine(item2.name);
-                    Console.WriteLine(item2.fileDate);
-                }
-            }
-        
             Console.ReadLine();
         }
     }
@@ -80,5 +74,11 @@ namespace VidlyConsole
     {
         public string name { get; set; }
         public DateTime fileDate { get; set; }
+
+
+        public override string ToString()
+        {
+            return name.ToString(); 
+        }
     }
 }

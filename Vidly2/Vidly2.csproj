@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44385</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -230,11 +230,33 @@
     <Compile Include="Migrations\201810161628415_InitialRefenceValues.Designer.cs">
       <DependentUpon>201810161628415_InitialRefenceValues.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811012054231_Seedusers.cs" />
+    <Compile Include="Migrations\201811012054231_Seedusers.Designer.cs">
+      <DependentUpon>201811012054231_Seedusers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021325439_AddDrivingLicenseToApplicationUser.cs" />
+    <Compile Include="Migrations\201811021325439_AddDrivingLicenseToApplicationUser.Designer.cs">
+      <DependentUpon>201811021325439_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811262129280_AddPhoneWhenRegister.cs" />
+    <Compile Include="Migrations\201811262129280_AddPhoneWhenRegister.Designer.cs">
+      <DependentUpon>201811262129280_AddPhoneWhenRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationDBContext.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\SendCodeViewModel.cs" />
+    <Compile Include="Models\VerifyCodeViewModel.cs" />
+    <Compile Include="Models\ForgotViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Min18YearsIfAMember.cs" />
@@ -561,12 +583,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Movies\Random.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Movies\Movies.cshtml" />
+    <Content Include="Views\Movies\List.cshtml" />
     <Content Include="Views\Customers\Customers.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Movies\MovieForm.cshtml" />
+    <Content Include="Views\Movies\ReadOnlyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -591,6 +614,15 @@
     <EmbeddedResource Include="Migrations\201810161628415_InitialRefenceValues.resx">
       <DependentUpon>201810161628415_InitialRefenceValues.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811012054231_Seedusers.resx">
+      <DependentUpon>201811012054231_Seedusers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021325439_AddDrivingLicenseToApplicationUser.resx">
+      <DependentUpon>201811021325439_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811262129280_AddPhoneWhenRegister.resx">
+      <DependentUpon>201811262129280_AddPhoneWhenRegister.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -610,7 +642,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>31509</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:31509/</IISUrl>
+          <IISUrl>https://localhost:44385/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

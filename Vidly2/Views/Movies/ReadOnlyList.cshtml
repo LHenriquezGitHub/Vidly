@@ -1,0 +1,45 @@
+﻿@model Vidly2.ViewModels.MovieViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table id="movies" class="table" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section    scripts{
+    <script>
+        $(document).ready(function () {
+
+            var table =
+
+                $("#movies").DataTable({
+                    ajax: {
+                        url: "/api/movies",
+                        dataSrc: ""
+                    },
+                    columns:
+                        [
+                            {
+                                data: "name"
+                            },
+                            {
+                                data: "genre.name"
+                            }
+                        ]
+                });
+
+        });
+    </script>
+}
