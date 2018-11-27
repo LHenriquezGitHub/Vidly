@@ -1,11 +1,11 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vidly2.Models;
 using Vidly2.ViewModels;
 using System.Data.Entity;
+using System.Runtime.Caching;
 
 namespace Vidly2.Controllers
 {
@@ -88,6 +88,13 @@ namespace Vidly2.Controllers
         // GET: Customers
         public ActionResult Index()
         {
+            if (MemoryCache.Default["Genres"] == null)
+            {
+                MemoryCache.Default["Genres"] = _context.Genres.ToList();
+            }
+
+            var genres = MemoryCache.Default["Genres"] as IEnumerable<Genre>;
+
             return RedirectToAction("Customers", "Customers");
         }
 
@@ -106,22 +113,12 @@ namespace Vidly2.Controllers
 
         [Route(@"customers/{Id:regex(\d{1})}")]
         public ActionResult Customers(int? Id)
-        {
-            
+        {            
             return View(GetCustomersViewModel(Id));
-
         }
-
 
         public CustomerViewModel GetCustomersViewModel(int? Id)
         {
-            //var customers = new List<Customer>
-            //{
-            //    new Customer {Id = 1, Name = "Leia"},
-            //    new Customer {Id = 2, Name = "Christina"},
-            //    new Customer {Id = 3, Name = "Isabelle"}
-            //};
-
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             var cvm = new CustomerViewModel();
